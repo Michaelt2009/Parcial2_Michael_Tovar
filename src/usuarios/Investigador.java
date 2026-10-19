@@ -18,7 +18,9 @@ public class Investigador {
 
     /** Asocia el investigador a un experimento existente. */
     public void asociarExperimento(Experimento experimento) {
-        // TODO: implementar
+        if (experimento != null && !this.experimentos.contains(experimento)) {
+            this.experimentos.add(experimento);
+        }
     }
 
     public String getNombre() { return nombre; }
