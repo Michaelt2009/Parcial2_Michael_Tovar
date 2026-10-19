@@ -16,8 +16,12 @@ public class ModeloRNN extends Modelo {
 
     @Override
     public double entrenar(Dataset dataset) {
-        // TODO: implementar
-        return 0;
+        int loss = this.numCapas * 10;
+        for (int i = 0; i < getLossPorEpoca().length; i++) {
+            registrarEpoca(loss);
+            loss = Math.max(1, loss - 1);
+        }
+        return mejorLoss();
     }
 
     public int getNumCapas() { return numCapas; }
