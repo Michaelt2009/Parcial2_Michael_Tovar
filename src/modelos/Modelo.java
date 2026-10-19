@@ -32,7 +32,13 @@ public abstract class Modelo {
      * actualiza el mejor loss pero no agrega más elementos.
      */
     public void registrarEpoca(int loss) {
-        // TODO: implementar
+        if (loss < this.mejorLossRegistrado) {
+            this.mejorLossRegistrado = loss;
+        }
+        if (this.lossPorEpoca.length > this.epocaActual) {
+            this.lossPorEpoca[this.epocaActual] = loss;
+            this.epocaActual++;
+        }
     }
 
     /**
@@ -40,8 +46,7 @@ public abstract class Modelo {
      * Si no hay épocas, retorna Integer.MAX_VALUE.
      */
     public int mejorLoss() {
-        // TODO: implementar
-        return Integer.MAX_VALUE;
+        return this.mejorLossRegistrado;
     }
 
     /**
@@ -49,16 +54,34 @@ public abstract class Modelo {
      * No se guarda como atributo.
      */
     public double calcularMetrica(MetricaEvaluacion metrica) {
-        // TODO: implementar
+        if (metrica != null) {
+            return metrica.calcular(this, "accuracy");
+        }
         return 0;
     }
 
     // Getters encapsulados
-    public String getNombre() { return nombre; }
-    public int[] getLossPorEpoca() { return lossPorEpoca; }
-    public int getEpocaActual() { return epocaActual; }
-    public int getMejorLossRegistrado() { return mejorLossRegistrado; }
+    public String getNombre() {
+        return nombre;
+    }
 
-    protected void setEpocaActual(int epocaActual) { this.epocaActual = epocaActual; }
-    protected void setMejorLossRegistrado(int v) { this.mejorLossRegistrado = v; }
+    public int[] getLossPorEpoca() {
+        return lossPorEpoca;
+    }
+
+    public int getEpocaActual() {
+        return epocaActual;
+    }
+
+    public int getMejorLossRegistrado() {
+        return mejorLossRegistrado;
+    }
+
+    protected void setEpocaActual(int epocaActual) {
+        this.epocaActual = epocaActual;
+    }
+
+    protected void setMejorLossRegistrado(int v) {
+        this.mejorLossRegistrado = v;
+    }
 }
